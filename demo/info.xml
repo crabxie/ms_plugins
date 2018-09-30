@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+    <base>
+        <title>Demo</title>
+        <name>Demo</name>
+        <desc><![CDATA[very simple demo for developer]]></desc>
+        <properties><![CDATA[build in]]></properties>
+        <type>plugin</type>
+        <category>示例</category>
+        <sub_cate>图形</sub_cate>
+        <version>1.0</version>
+        <author>xieq</author>
+        <time>2018-07-10</time>
+        <icon>icon.png</icon>
+    </base>
+    <menus></menus>
+    <install>
+    </install>
+</root>
