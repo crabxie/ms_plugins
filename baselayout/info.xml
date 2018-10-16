@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+    <base>
+        <title>基础布局</title>
+        <name>baselayout</name>
+        <desc><![CDATA[基础布局插件]]></desc>
+        <properties><![CDATA[build in]]></properties>
+        <type>plugin</type>
+        <category>小程序</category>
+        <sub_cate>工具</sub_cate>
+        <version>1.0</version>
+        <author>xieq</author>
+        <time>2018-07-10</time>
+        <icon>icon.png</icon>
+    </base>
+    <menus>
+        <item>
+        <name>基础布局</name>
+        <action>index</action>
+            <submenu>
+            <item>
+                <name>布局管理</name>
+                <action>layout</action>
+            </item>
+            </submenu>
+        </item>
+    </menus>
+    <install>
+        <table>
+            <![CDATA[
+                CREATE TABLE `base_layout` (
+                    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+                    `company_id` int(10) unsigned NOT NULL COMMENT '商业id',
+                    `name` varchar(255) NOT NULL COMMENT '名称',
+                    `layout` text COMMENT '布局json',
+                    `style` text COMMENT '样式json',
+                    `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态 1: 正常,0:关闭',
+                    `ctime` int(11) NOT NULL COMMENT '创建时间',
+                    `mtime` int(11) NOT NULL COMMENT '修改时间',
+                    PRIMARY KEY (`id`),
+                    KEY `idx_company_id` (`company_id`),
+                    KEY `idx_name` (`name`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='基础布局表';
+            ]]>
+         </table>
+        <datas>
+            <![CDATA[
+                insert into `base_layout` (`id`,`company_id`,`name`,`layout`,`style`,`ctime`,`mtime`) values ('1','123','图文','{\"id\":\"abcdef01\",\"type\":\"base\",\"name\":\"view\",\"class\":\"view_1\",\"config\":[{\"style\":[{\"width\":\"100%\"},{\"height\":\"450rpx\"},{\"background\":\"#fff\"},{\"margin-bottom\":\"8rpx\"}]}],\"subs\":[{\"id\":\"abcde101\",\"type\":\"base\",\"name\":\"view\",\"class\":\"view_11\",\"config\":[{\"style\":[{\"width\":\"100%\"},{\"height\":\"44rpx\"},{\"background\":\"#fff\"},{\"margin-bottom\":\"8rpx\"},{\"color\":\"#ccc\"},{\"font-size\":\"38rpx\"},{\"text-align\":\"center\"}]}]}]}','',1539682276,1539682276);
+            ]]>
+        </datas>
+    </install>
+</root>

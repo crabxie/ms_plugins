@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+    <link href="/wxapp/asset/simpleboot/themes/flat/theme.min.css" rel="stylesheet">
+    <script src="/wxapp/asset/js/jquery.js"></script>
+    <style type="text/css">
+        .box-flex{background: #f4f4f4;padding: 10px;border: 1px dashed steelblue;}
+        .box-flex span{display: block;border: 1px solid red;}
+        /* flex两列布局 */
+        .box-flex1{}
+        .box-flex1 .item:nth-child(1){flex-grow: 2;}
+        .box-flex1 .item:nth-child(2){flex-grow: 1;}
+        /* flex两列布局（一列定宽，另一列随屏幕宽度自适应） */
+        .box-flex2{}
+        .box-flex2 .item{}
+        .box-flex2 .item:nth-child(1){flex: 1 0 100px;}/* 元素不收缩 */
+        .box-flex2 .item:nth-child(2){flex-grow: 1;overflow: hidden;}/* 防止元素内容过长超出父元素 */
+        /* flex三列布局 */
+        .box-flex3{}
+        .box-flex3 .item:nth-child(1){flex-grow: 2;order: 1;}
+        .box-flex3 .item:nth-child(2){flex-grow: 1;order: 0;}
+        .box-flex3 .item:nth-child(3){flex-grow: 1;order: 2;}
+        /* flex n列等比布局 */
+        .box-flex4{}
+        .box-flex4 .item{width: 100%;flex-grow: 1;word-break: break-all;}/* 设置width可避免item里内容过多时。该元素相对其他兄弟元素变宽 */
+        /* flex流式布局 */
+        .box-flex5{flex-wrap: wrap;justify-content: flex-start;}
+        .box-flex5 .item{flex-basis: 32%;}
+        /* flex水平垂直居中 */
+        .box-flex6{width:300px;height:300px;justify-content: center;align-items: center;}
+        .box-flex6 .item{flex-basis: 33%;}
+        /* flex对折线 */
+        .box-flex7{flex-direction: column;width: 300px;}
+        .box-flex7 .item-wp{display: flex;}
+        .box-flex7 .item-wp:nth-child(1){}
+        .box-flex7 .item-wp:nth-child(2){justify-content: center;align-items: center;}
+        .box-flex7 .item-wp:nth-child(3){justify-content: flex-end;align-items: flex-end;}
+        .box-flex7 .item{flex-basis: 33%;}
+        /* flex各种对齐方式 */
+        .box-flex8{flex-direction: column;}
+        .box-flex8 .item-wp{display: flex;}
+        .box-flex8 .item-wp:nth-child(1){justify-content: space-around;}
+        .box-flex8 .item-wp:nth-child(2){justify-content: space-between;}
+        .box-flex8 .item-wp:nth-child(3){justify-content: flex-start;}
+        .box-flex8 .item-wp:nth-child(4){justify-content: center;}
+        .box-flex8 .item-wp:nth-child(5){justify-content: flex-end;}
+        .box-flex8 .item{flex-basis: 25%;}
+        .container{flex-flow: row wrap;width:100%;display: flex;justify-content: flex-start;align-items: center;}
+        .item{background-color:#f4f4f4;border-radius:10px;width: 60px; height: 80px;border: 1px solid;margin: 20px;display:flex;justify-content:center;align-items: center;}
+        .item div{width:100%;}
+    </style>
+</head>
+<body>
+<div>
+    {% if error %}
+    <div>{{error}}</div>
+    {% else %}
+    <div class="container">
+        {% for key,val in info%}
+            <div class="item">
+                <label class="item_label" for="ly_{{val.id}}">{{val.name}}</label>
+                <input type="radio" id="ly_{{val.id}}" value="{{val.id}}" style="display: none;"/>
+                <textarea id="tx_{{val.id}}" style="display: none;">{{val.layout}}</textarea>
+            </div>
+
+        {% endfor %}
+        <input id="ret_id" value="" type="hidden"/>
+        <textarea id="ret_data" style="display: none;"></textarea>
+    </div>
+    {% endif %}
+</div>
+
+</body>
+<script type="text/javascript">
+    function get_selected_items(){
+        var files= [];
+        var s_id = $('#ret_id').val();
+        var s_data = $('#ret_data').text();
+        if (s_id=='') {
+            alert('请选择！');
+            return false;
+        }
+        files.push({'id':s_id,"data":s_data});
+        return files;
+    }
+    $(function(){
+        $('.item_label').click(function(){
+            var self = this;
+            var selected = $(self).attr('sel');
+            var s_for = $(self).attr('for');
+            var s_id = $('#'+s_for).val();
+            var s_data = $('#tx_'+s_id).text();
+
+            $('.item_label').each(function(){
+                $(this).parent().css('background-color',"#f4f4f4");
+                $(this).css('color',"black");
+                $(this).attr('sel','0');
+            });
+            if (selected!='1') {
+                $(self).parent().css('background-color',"green");
+                $(self).css('color',"#f4f4f4");
+                $(self).attr('sel','1');
+                $('#ret_id').val(s_id);
+                $('#ret_data').text(s_data);
+            } else {
+                $(self).parent().css('background-color',"#f4f4f4");
+                $(self).css('color',"black");
+                $(self).attr('sel','0');
+                $('#ret_id').val('');
+                $('#ret_data').text('');
+            }
+
+
+        });
+    });
+</script>
+</html>
